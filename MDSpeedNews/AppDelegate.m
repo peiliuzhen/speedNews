@@ -7,6 +7,10 @@
 //
 
 #import "AppDelegate.h"
+#import "MainViewController.h"
+#import "BaseNavigationController.h"
+#import "SettingViewController.h"
+#import "MDLaunchADView.h"
 
 @interface AppDelegate ()
 
@@ -14,10 +18,48 @@
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    [self.window setBackgroundColor:[UIColor whiteColor]];
+    
+    SettingViewController *setController = [[SettingViewController alloc] init];
+    
+    MainViewController *mainController = [[MainViewController alloc] init];
+    
+    // -- 右侧
+    [[MDYSliderViewController sharedSliderController] setRightVC:setController];
+    
+    BaseNavigationController *navController = [[BaseNavigationController alloc] initWithRootViewController:mainController];
+    
+    // -- 中间的
+    [[MDYSliderViewController sharedSliderController] setMainVC:navController];
+    
+    [self.window setRootViewController:[MDYSliderViewController sharedSliderController]];
+
+    [self.window makeKeyAndVisible];
+    
+    [self loadLaunchADView];
+    
     return YES;
+}
+
+- (void) loadLaunchADView{
+    
+    NSArray *launchImageArr = @[@"iphone4",@"iphone5",@"iphone6",@"iphone6p"];
+    
+    // -- 如果你要获取的是网络图片    [adView.adImageView sd_setImageWithURL:<#(NSURL *)#>] 第二个参数传nil
+    
+    MDLaunchADView *adView = [MDLaunchADView createADViewWithImagePhone4_5_6_6PNameS:launchImageArr ADImageName:@"ad"];
+    
+    [adView.adImageView setClipsToBounds:YES];
+
+    [adView setTapAdViewBlock:^{
+        
+        // -- 执行点击事件
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.medalands.com"]];
+    }];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
