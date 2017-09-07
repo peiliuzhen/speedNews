@@ -1,4 +1,1 @@
-<<<<<<< HEAD
-=======
-hello world
->>>>>>> hello
+hello bravo
