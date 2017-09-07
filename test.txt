@@ -1,2 +1,4 @@
-dwedewndwkn
-sdkjfbskjdbfkjsdbfks
+<<<<<<< HEAD
+=======
+hello world
+>>>>>>> hello
